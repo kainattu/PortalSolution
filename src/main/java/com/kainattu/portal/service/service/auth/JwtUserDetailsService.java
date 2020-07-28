@@ -1,4 +1,4 @@
-package com.springBoot.service;
+package com.kainattu.portal.service.service.auth;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,12 +14,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.springBoot.dto.UserDTO;
-import com.springBoot.model.DAORole;
-import com.springBoot.model.DAOUser;
-import com.springBoot.repo.RoleRepo;
-import com.springBoot.repo.UserDao;
+import com.kainattu.portal.service.dto.auth.UserDTO;
+import com.kainattu.portal.service.model.auth.DAORole;
+import com.kainattu.portal.service.model.auth.DAOUser;
+import com.kainattu.portal.service.repo.auth.RoleRepo;
+import com.kainattu.portal.service.repo.auth.UserDao;
 
+/**
+ * @author Palanivel Muthu Gounder
+ *
+ */
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 

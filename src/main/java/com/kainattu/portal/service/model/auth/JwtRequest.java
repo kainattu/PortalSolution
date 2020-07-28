@@ -1,4 +1,4 @@
-package com.springBoot.model;
+package com.kainattu.portal.service.model.auth;
 import java.io.Serializable;
 public class JwtRequest implements Serializable {
 private static final long serialVersionUID = 5926468583005150707L;
