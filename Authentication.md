@@ -1,7 +1,7 @@
 Register Service-
-Method Post
-Url localhost:8080/register
-Response body 
+Method- Post
+Url- localhost:8080/register
+Response body -
 Multiple role user-   {"username" :"multi","password":"password", "roles":["Admin","User"], "email":"multi@test.com", "mobileNo":9333244554}
 Admin role user- {"username" :"admin","password":"password", "roles":["Admin"], "email":"admin@test.com", "mobileNo":9333538292}
 User role user- {"username" :"user","password":"password", "roles":["User"], "email":"user@test.com", "mobileNo":8478291234}
