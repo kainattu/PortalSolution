@@ -1,8 +1,8 @@
-package com.springBoot.repo;
+package com.kainattu.portal.service.repo.auth;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.springBoot.model.DAORole;
+import com.kainattu.portal.service.model.auth.DAORole;
 
 public interface RoleRepo extends JpaRepository<DAORole, Long>{
 
