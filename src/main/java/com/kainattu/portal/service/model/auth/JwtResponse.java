@@ -1,4 +1,4 @@
-package com.springBoot.model;
+package com.kainattu.portal.service.model.auth;
 
 import java.io.Serializable;
 

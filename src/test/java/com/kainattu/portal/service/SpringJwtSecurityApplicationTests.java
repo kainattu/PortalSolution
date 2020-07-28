@@ -1,4 +1,4 @@
-package com.springBoot;
+package com.kainattu.portal.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
