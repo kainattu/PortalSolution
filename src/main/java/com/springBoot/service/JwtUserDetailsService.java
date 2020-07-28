@@ -59,11 +59,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 		newUser.setEmail(user.getEmail());
 		newUser.setMobileNo(user.getMobileNo());
 		Set<DAORole> roleList = new HashSet<DAORole>();
-		for(String role: user.getRoles()) {
-			DAORole daoRole = roleRepo.findByRole(role);
-			//DAORole daoRole = new DAORole();
-			//daoRole.setRole(role);
-			roleList.add(daoRole);
+		if(user.getRoles()!=null) {
+			for(String role: user.getRoles()) {
+				DAORole daoRole = roleRepo.findByRole(role);
+				//DAORole daoRole = new DAORole();
+				//daoRole.setRole(role);
+				roleList.add(daoRole);
+			}
 		}
 		newUser.setRoles(roleList);
 		return userDao.save(newUser);
