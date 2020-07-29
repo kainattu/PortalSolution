@@ -1,0 +1,16 @@
+
+<p>{{data}}</p>
+
+<div class="row">
+    <div class="col-md-5">
+        <p *ngIf="error" class="alert alert-danger">{{error}}</p>
+        <button  routerLink="hello" routerLinkActive="active" class="btn btn-primary" (click)="hello()">Hello</button>
+        <button routerLink="detail" routerLinkActive="active" class="btn btn-primary" (click)="getUserDetail()">User Detail</button>
+        <button routerLink="all" routerLinkActive="active" class="btn btn-primary" (click)="getAllUser()">All User</button>
+    </div>
+    <div class="col-md-7">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+
