@@ -1,6 +1,9 @@
 package com.kainattu.portal.service.controller.auth;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,8 +65,10 @@ public class JwtAuthenticationController {
 	}
 
 	@RequestMapping(value = "/hello", method = RequestMethod.GET)
-	public ResponseEntity<?> hello() throws Exception {
-		return ResponseEntity.ok("hello");
+	public ResponseEntity<?> hello(HttpServletRequest req) throws Exception {
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("Test", "Hello");
+		return ResponseEntity.ok(map);
 	}
 
 	@RequestMapping(value = "/admin/getAllUser", method = RequestMethod.GET)
@@ -72,7 +77,7 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(userDetailsService.getAllUser());
 	}
 
-	@RequestMapping(value = "/user/getUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/getUser", method = RequestMethod.POST)
 	public ResponseEntity<?> getAllUser(@RequestParam String username) throws Exception {
 		DAOUser user = userDetailsService.getUser(username);
 		return ResponseEntity.ok(user);
