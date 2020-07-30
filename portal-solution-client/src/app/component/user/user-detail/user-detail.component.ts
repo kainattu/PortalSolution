@@ -16,6 +16,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userDetail = null;
     this.subscription = this.userService.userDetailsChanged
       .subscribe(
         (userDetail: UserDetail) => {
