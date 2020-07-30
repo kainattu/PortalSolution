@@ -46,6 +46,7 @@ export class UserService {
   }
   
   getUserDetail() {
+    this.userDetail = null;
     return this.http
       .post<UserDetail>(
         'http://localhost:8080/user/getUser?username=user', {}
