@@ -1,5 +1,8 @@
 package com.kainattu.portal.service.service.whatsapp;
 
+import java.net.URI;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,8 @@ public class WhatsappSenderService implements WhatsappSender{
 	               new com.twilio.type.PhoneNumber("whatsapp:"+request.getPhoneNumber()),
 	               new com.twilio.type.PhoneNumber("whatsapp:"+twilioConfiguration.getTrial_number()),
 	               request.getMessage())
+				.setMediaUrl(
+		                Arrays.asList(URI.create("https://i.pinimg.com/474x/4c/dc/7e/4cdc7e170575a5d53286e9175664cbc8.jpg")))
 	           .create();
 		
 	}
