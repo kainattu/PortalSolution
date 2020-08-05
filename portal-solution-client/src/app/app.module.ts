@@ -15,6 +15,7 @@ import { HelloComponent } from './component/user/hello/hello.component';
 import { UserDetailComponent } from './component/user/user-detail/user-detail.component';
 import { AllUserComponent } from './component/user/all-user/all-user.component';
 import { UserService } from './service/user.service';
+import { WhatsappComponent } from './component/whatsapp/whatsapp.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserService } from './service/user.service';
     HelloComponent,
     UserDetailComponent,
     AllUserComponent,
+    WhatsappComponent,
   ],
   imports: [
     BrowserModule,
