@@ -59,7 +59,7 @@ public class WhatsappController {
 		out.close();
 	}
 	
-	@GetMapping("/fetchMessage")
+	@GetMapping("whatsapp/fetchMessage")
 	public List<WhatsappMessage> fetchMessage() {
 		return whatsappService.fetchMessage();
 	}
