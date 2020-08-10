@@ -59,23 +59,18 @@ public class JwtAuthenticationController {
 	
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	public ResponseEntity<?> resetPassword(@RequestBody JwtRequest authenticationRequest) throws Exception {
+		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 		boolean firstTimeLogin = userDetailsService.validateFirstTimeLogin(authenticationRequest.getUsername());
 		if(firstTimeLogin) {
-			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 			DAOUser user = userDetailsService.updatePassword(authenticationRequest);
 			return ResponseEntity.ok(user);
 		}
 		return null;
 	}
 
-	private void authenticate(String username, String password) throws Exception {
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		} catch (DisabledException e) {
-			throw new AuthendicationException(e, ReasonCode.USER_DISABLED);
-		} catch (BadCredentialsException e) {
-			throw new AuthendicationException(e, ReasonCode.INVALID_CREDENTIALS);
-		}
+	private void authenticate(String username, String password) {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
