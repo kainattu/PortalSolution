@@ -36,7 +36,7 @@ export class AddUserComponent implements OnInit {
     obs.subscribe(
       resData => {
         // console.log(resData);
-        // this.success = resData;
+        this.success = "User was successfully added";
       },
       errorMessage => {
         // console.log(errorMessage);

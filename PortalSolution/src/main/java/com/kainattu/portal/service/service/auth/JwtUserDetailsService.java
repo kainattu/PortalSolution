@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kainattu.portal.service.dto.auth.UserDTO;
+import com.kainattu.portal.service.exception.UserAlreadyExistsException;
 import com.kainattu.portal.service.model.auth.DAORole;
 import com.kainattu.portal.service.model.auth.DAOUser;
 import com.kainattu.portal.service.model.auth.JwtRequest;
@@ -58,23 +59,28 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 
 	public DAOUser save(UserDTO user) {
-		DAOUser newUser = new DAOUser();
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(bcryptEncoder.encode("password"));
-		newUser.setEmail(user.getEmail());
-		newUser.setMobileNo(user.getMobileNo());
-		newUser.setFirstTimeLogin(true);
-		Set<DAORole> roleList = new HashSet<DAORole>();
-		if(user.getRoles()!=null) {
-			for(String role: user.getRoles()) {
-				DAORole daoRole = roleRepo.findByRole(role);
-				//DAORole daoRole = new DAORole();
-				//daoRole.setRole(role);
-				roleList.add(daoRole);
+		if(getUser(user.getUsername())==null) {
+			DAOUser newUser = new DAOUser();
+			newUser.setUsername(user.getUsername());
+			newUser.setPassword(bcryptEncoder.encode("password"));
+			newUser.setEmail(user.getEmail());
+			newUser.setMobileNo(user.getMobileNo());
+			newUser.setFirstTimeLogin(true);
+			Set<DAORole> roleList = new HashSet<DAORole>();
+			if(user.getRoles()!=null) {
+				for(String role: user.getRoles()) {
+					DAORole daoRole = roleRepo.findByRole(role);
+					//DAORole daoRole = new DAORole();
+					//daoRole.setRole(role);
+					roleList.add(daoRole);
+				}
 			}
+			newUser.setRoles(roleList);
+			return userDao.save(newUser);
 		}
-		newUser.setRoles(roleList);
-		return userDao.save(newUser);
+		else {
+			throw new UserAlreadyExistsException("User " + user.getUsername() + " already exists.");
+		}
 	}
 	
 	public DAOUser updatePassword(JwtRequest request) {

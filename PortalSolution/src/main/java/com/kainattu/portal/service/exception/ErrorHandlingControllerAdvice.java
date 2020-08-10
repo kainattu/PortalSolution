@@ -26,4 +26,12 @@ class ErrorHandlingControllerAdvice {
 		  BadCredentialsException e) {
     return new ExceptionMessage("DISABLED", e.getMessage());
   }
+  
+  @ExceptionHandler({UserAlreadyExistsException.class})
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseBody
+  ExceptionMessage onUserExistsException(
+		  UserAlreadyExistsException e) {
+    return new ExceptionMessage("USER_EXISTS", e.getMessage());
+  }
 }

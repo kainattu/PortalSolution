@@ -1,7 +1,11 @@
 <div class="form-div">
-    <p *ngIf="error">Message was not successfully sent <br> {{error}}</p>
-    <p *ngIf="success">Message was successfully sent</p>
-      <form #addUserForm="ngForm" (ngSubmit)="onSubmit(addUserForm)">
+    <div *ngIf="error" class="alert alert-danger">
+      <p >{{error}}</p>
+    </div>
+    <div *ngIf="success" class="alert alert-success">
+      <p >{{success}}</p>
+    </div>
+    <form #addUserForm="ngForm" (ngSubmit)="onSubmit(addUserForm)">
           <div class="form-group">
             <label for="username">Username</label>
             <input
