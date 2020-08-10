@@ -33,6 +33,8 @@ public class DAOUser {
 	private String email;
 	
 	private long mobileNo;
+	
+	private boolean firstTimeLogin;
 
 	//private String roles;
 
@@ -85,6 +87,14 @@ public class DAOUser {
 
 	public void setMobileNo(long mobileNo) {
 		this.mobileNo = mobileNo;
+	}
+
+	public boolean isFirstTimeLogin() {
+		return firstTimeLogin;
+	}
+
+	public void setFirstTimeLogin(boolean firstTimeLogin) {
+		this.firstTimeLogin = firstTimeLogin;
 	}
 	
 	

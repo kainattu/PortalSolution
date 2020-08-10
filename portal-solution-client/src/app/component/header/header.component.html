@@ -16,6 +16,9 @@
           <a routerLink="/user">User</a>
         </li>
         <li routerLinkActive="active" *ngIf="isAuthenticated" >
+          <a routerLink="/admin">Admin</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="isAuthenticated" >
           <a routerLink="/whatsapp">Whatsapp</a>
         </li>
       </ul>

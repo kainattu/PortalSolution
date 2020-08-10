@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Subject } from 'rxjs';
 
 export interface WhatsappResponseData {
   success: string;
+}
+
+export interface WhatsappRecieveResponseData {
+  fromContact: string;
+  toContact: string;
+  message: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class WhatsappService {
+
+  allWhatsappRecieveChanged = new Subject<WhatsappRecieveResponseData[]>();
+  private messages : WhatsappRecieveResponseData[];
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +38,24 @@ export class WhatsappService {
     
       })
     );
+  }
+
+  recieveMessage(): any {
+    return this.http
+    .get<WhatsappRecieveResponseData[]>(
+      'http://localhost:8080/fetchMessage'
+    )
+    .pipe(
+      catchError(this.handleError),
+      tap(resData => {
+        this.messages = resData;
+        this.allWhatsappRecieveChanged.next(this.messages.slice())
+      })
+    );
+  }
+
+  fetchMessages(){
+    return this.messages.slice();
   }
 
   private handleError(errorRes: HttpErrorResponse) {

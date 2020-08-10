@@ -12,6 +12,7 @@ export interface AuthResponseData {
   expiresIn: string;
   username: string;
   registered?: boolean;
+  firstTimeLogin?: boolean
 }
 
 @Injectable({ providedIn: 'root' })
@@ -56,12 +57,17 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap(resData => {
-          this.handleAuthentication(
-            resData.username,
-            resData.email,
-            resData.token,
-            +resData.expiresIn
-          );
+          if(resData.firstTimeLogin){
+            this.router.navigate(['/resetPassword']);
+          }
+          else {
+            this.handleAuthentication(
+              resData.username,
+              resData.email,
+              resData.token,
+              +resData.expiresIn
+            );
+          }
         })
       );
   }
@@ -92,6 +98,25 @@ export class AuthService {
       this.autoLogout(expirationDuration);
     }
   }
+
+  resetPassword(username: string, oldPassword: string, newPassword: string) {
+    return this.http
+      .post<AuthResponseData>(
+        'http://localhost:8080/resetPassword',
+        {
+          username: username,
+          password: oldPassword,
+          newPassword: newPassword
+        }
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap(resData => {
+          
+        })
+      );
+  }
+
 
   logout() {
     this.user.next(null);
@@ -127,7 +152,7 @@ export class AuthService {
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
     }
-    switch (errorRes.error.error.message) {
+    switch (errorRes.error.message) {
       case 'EMAIL_EXISTS':
         errorMessage = 'This email exists already';
         break;

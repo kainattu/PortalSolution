@@ -1,0 +1,23 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let message of messages">
+            <td>
+               {{message.fromContact}}
+            </td>
+            <td>
+               {{message.toContact}}
+            </td>
+            <td>
+               {{message.message}}
+            </td>
+        </tr>
+       
+    </tbody>
+</table>

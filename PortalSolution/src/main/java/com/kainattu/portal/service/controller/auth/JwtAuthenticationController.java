@@ -42,11 +42,30 @@ public class JwtAuthenticationController {
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		JwtResponse response = new JwtResponse(token);
-		response.setUsername(userDetails.getUsername());
-		return ResponseEntity.ok(response);
+		boolean firstTimeLogin = userDetailsService.validateFirstTimeLogin(authenticationRequest.getUsername());
+		if(!firstTimeLogin) {
+			final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+			final String token = jwtTokenUtil.generateToken(userDetails);
+			JwtResponse response = new JwtResponse(token);
+			response.setUsername(userDetails.getUsername());
+			return ResponseEntity.ok(response);
+		}
+		else {
+			JwtResponse response = new JwtResponse("");
+			response.setFirstTimeLogin(true);
+			return ResponseEntity.ok(response);
+		}
+	}
+	
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ResponseEntity<?> resetPassword(@RequestBody JwtRequest authenticationRequest) throws Exception {
+		boolean firstTimeLogin = userDetailsService.validateFirstTimeLogin(authenticationRequest.getUsername());
+		if(firstTimeLogin) {
+			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+			DAOUser user = userDetailsService.updatePassword(authenticationRequest);
+			return ResponseEntity.ok(user);
+		}
+		return null;
 	}
 
 	private void authenticate(String username, String password) throws Exception {

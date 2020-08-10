@@ -9,6 +9,7 @@ public class JwtResponse implements Serializable {
 	private final long expiresIn = 5 * 60 * 60;
 	private String username;
 	private String email;
+	private boolean firstTimeLogin;
 	
 	public JwtResponse(String jwttoken) {
 		this.jwttoken = jwttoken;
@@ -32,5 +33,12 @@ public class JwtResponse implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public boolean isFirstTimeLogin() {
+		return firstTimeLogin;
+	}
+	public void setFirstTimeLogin(boolean firstTimeLogin) {
+		this.firstTimeLogin = firstTimeLogin;
+	}
+	
 	
 }

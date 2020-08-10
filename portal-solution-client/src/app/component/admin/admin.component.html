@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="column">
+      <ul class="nav navbar-nav row-vertical">
+        <li routerLinkActive="active">
+          <a routerLink="add" (click)="addUser()">Add User</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="view" (click)="getAllUser()">View Users</a>
+        </li>
+      </ul>
+    </div>
+    <div class="main">
+      <router-outlet></router-outlet>
+     </div>
+  </div>
+  

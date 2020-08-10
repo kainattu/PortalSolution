@@ -1,36 +1,30 @@
-<div class="form-div">
-  <p *ngIf="error">Message was not successfully sent <br> {{error}}</p>
-  <p *ngIf="success">Message was successfully sent</p>
-    <form #whatsappForm="ngForm" (ngSubmit)="onSubmit(whatsappForm)">
-        <div class="form-group">
-          <label for="phoneNumber">Phone Number</label>
-          <input
-            type="number"
-            id="phoneNumber"
-            class="form-control"
-            ngModel
-            name="phoneNumber"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <input
-            type="textarea"
-            id="message"
-            class="form-control"
-            ngModel
-            name="message"
-            required
-          />
-        </div>
-        <div>
-          <button
-            class="btn btn-primary"
-            type="submit"
-            [disabled]="!whatsappForm.valid"
-          >Send
-          </button>
-        </div>
-      </form>
+<div class="row">
+  <div class="column">
+    <ul class="nav navbar-nav row-vertical">
+      <li routerLinkActive="active">
+        <a routerLink="send">Send Message</a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="recieve" (click)="recieveMessage()">Recieve Message</a>
+      </li>
+    </ul>
+  </div>
+  <div class="main">
+    <router-outlet></router-outlet>
+    
+    
+  </div>
 </div>
+
+
+<!-- <div class="row">
+  <div class="col-md-5">
+      <p *ngIf="error" class="alert alert-danger">{{error}}</p>
+      <button  routerLink="hello" routerLinkActive="active" class="btn btn-primary" (click)="hello()">Hello</button>
+      <button routerLink="detail" routerLinkActive="active" class="btn btn-primary" (click)="getUserDetail()">User Detail</button>
+      <button routerLink="all" routerLinkActive="active" class="btn btn-primary" (click)="getAllUser()">All User</button>
+  </div>
+  <div class="col-md-7">
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
