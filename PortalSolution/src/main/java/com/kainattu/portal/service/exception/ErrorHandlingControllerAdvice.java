@@ -28,7 +28,7 @@ class ErrorHandlingControllerAdvice {
   }
   
   @ExceptionHandler({UserAlreadyExistsException.class})
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
   @ResponseBody
   ExceptionMessage onUserExistsException(
 		  UserAlreadyExistsException e) {
