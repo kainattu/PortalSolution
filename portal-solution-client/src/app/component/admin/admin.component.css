@@ -1,0 +1,13 @@
+.row-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main {
+    flex-basis: 60%;
+}

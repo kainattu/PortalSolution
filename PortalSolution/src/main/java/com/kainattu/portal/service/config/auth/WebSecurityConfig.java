@@ -55,10 +55,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// We don't need CSRF for this example
 		httpSecurity.cors().and().csrf().disable()
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/hello","/authenticate", "/register", "/h2-console").permitAll()
-				.antMatchers("/admin/**").hasAuthority("Admin").antMatchers("/user/**").hasAuthority("User").
+				.authorizeRequests().antMatchers("/sms","/hello","/resetPassword","/authenticate", "/register", "/h2-console").permitAll()
+				.antMatchers("/admin/**").hasAuthority("Admin").
+				antMatchers("/user/**").hasAuthority("User").
+				antMatchers("whatsapp/send").hasAuthority("WhatsappWrite").
+				antMatchers("whatsapp/fetchMessage").hasAuthority("WhatsappRead")
 				// all other requests need to be authenticated
-				anyRequest().authenticated().and().
+				.anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to
 				// store user's state.
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()

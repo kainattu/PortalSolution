@@ -12,6 +12,7 @@ export interface AuthResponseData {
   expiresIn: string;
   username: string;
   registered?: boolean;
+  firstTimeLogin?: boolean
 }
 
 @Injectable({ providedIn: 'root' })
@@ -56,12 +57,17 @@ export class AuthService {
       .pipe(
         catchError(this.handleError),
         tap(resData => {
-          this.handleAuthentication(
-            resData.username,
-            resData.email,
-            resData.token,
-            +resData.expiresIn
-          );
+          if(resData.firstTimeLogin){
+            this.router.navigate(['/resetPassword']);
+          }
+          else {
+            this.handleAuthentication(
+              resData.username,
+              resData.email,
+              resData.token,
+              +resData.expiresIn
+            );
+          }
         })
       );
   }
@@ -92,6 +98,25 @@ export class AuthService {
       this.autoLogout(expirationDuration);
     }
   }
+
+  resetPassword(username: string, oldPassword: string, newPassword: string) {
+    return this.http
+      .post<AuthResponseData>(
+        'http://localhost:8080/resetPassword',
+        {
+          username: username,
+          password: oldPassword,
+          newPassword: newPassword
+        }
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap(resData => {
+          
+        })
+      );
+  }
+
 
   logout() {
     this.user.next(null);
@@ -124,19 +149,21 @@ export class AuthService {
 
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
-    if (!errorRes.error || !errorRes.error.error) {
-      return throwError(errorMessage);
-    }
-    switch (errorRes.error.error.message) {
-      case 'EMAIL_EXISTS':
-        errorMessage = 'This email exists already';
+    // if (!errorRes.error || !errorRes.error.error) {
+    //   return throwError(errorMessage);
+    // }
+    switch (errorRes.error.code) {
+      case 'BAD_CREDENTIAL':
+        errorMessage = errorRes.error.message;
         break;
-      case 'EMAIL_NOT_FOUND':
-        errorMessage = 'This email does not exist.';
+      case 'DISABLED':
+        errorMessage = errorRes.error.message;
         break;
       case 'INVALID_PASSWORD':
         errorMessage = 'This password is not correct.';
         break;
+      default:
+        errorMessage = errorRes.error.message;
     }
     return throwError(errorMessage);
   }

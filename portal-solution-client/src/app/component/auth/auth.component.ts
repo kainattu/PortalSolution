@@ -40,9 +40,16 @@ export class AuthComponent {
 
     authObs.subscribe(
       resData => {
+        if(resData.firstTimeLogin){
+          // this.router.navigate(['/resetPassword', {username:username,oldPassword:password}]);
+          this.router.navigate(['/resetPassword']);
+
+        }
+        else {
         console.log(resData);
         this.isLoading = false;
         this.router.navigate(['/user']);
+        }
       },
       errorMessage => {
         console.log(errorMessage);
