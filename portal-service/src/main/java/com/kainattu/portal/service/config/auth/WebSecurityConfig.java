@@ -68,5 +68,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		
+		//H2 database console runs inside a frame, you need to enable this in in Spring Security.
+		httpSecurity.headers().frameOptions().disable();
+
 	}
 }
