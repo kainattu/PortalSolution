@@ -55,11 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// We don't need CSRF for this example
 		httpSecurity.cors().and().csrf().disable()
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/sms","/hello","/resetPassword","/authenticate", "/register", "/h2-console").permitAll()
+				.authorizeRequests().antMatchers("/sms","/hello","/resetPassword","/authenticate","/h2-console/**").permitAll()
 				.antMatchers("/admin/**").hasAuthority("Admin").
+				antMatchers("/register").hasAuthority("Admin").
 				antMatchers("/user/**").hasAuthority("User").
-				antMatchers("whatsapp/send").hasAuthority("WhatsappWrite").
-				antMatchers("whatsapp/fetchMessage").hasAuthority("WhatsappRead")
+				antMatchers("/whatsapp/send").hasAuthority("WhatsappWrite").
+				antMatchers("/whatsapp/fetchMessage").hasAuthority("WhatsappRead")
 				// all other requests need to be authenticated
 				.anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to
@@ -68,5 +69,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+		
+		//H2 database console runs inside a frame, you need to enable this in in Spring Security.
+		httpSecurity.headers().frameOptions().disable();
+
 	}
 }
