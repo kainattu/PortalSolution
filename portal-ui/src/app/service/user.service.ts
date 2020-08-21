@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject } from 'rxjs';
 import { UserDetail } from '../model/user-detail.model';
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UserService {
   hello() {
     return this.http
       .get(
-        'http://localhost:8080/hello'
+        `${environment.serverUrl}/hello`
       )
       .pipe(
         catchError(this.handleError),
@@ -34,7 +35,7 @@ export class UserService {
     this.allUser = null;
     return this.http
       .get<UserDetail[]>(
-        'http://localhost:8080/admin/getAllUser'
+        `${environment.serverUrl}/admin/getAllUser`
       )
       .pipe(
         catchError(this.handleError),
@@ -49,7 +50,7 @@ export class UserService {
     this.userDetail = null;
     return this.http
       .post<UserDetail>(
-        'http://localhost:8080/user/getUser?username=user', {}
+        `${environment.serverUrl}/user/getUser?username=user`, {}
       )
       .pipe(
         catchError(this.handleError),

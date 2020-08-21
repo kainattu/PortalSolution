@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AdminService {
   addUser(username:string,email:string,mobileNo:number,roles:string[]): any {
     return this.http
     .post(
-      'http://localhost:8080/register',
+      `${environment.serverUrl}/register`,
       {
         username: username,
         email: email,

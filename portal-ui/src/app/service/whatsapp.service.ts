@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject } from 'rxjs';
+import { environment } from "src/environments/environment";
 
 export interface WhatsappResponseData {
   success: string;
@@ -26,7 +27,7 @@ export class WhatsappService {
   sendMessage(phoneNumber: number, message: string): any {
     return this.http
     .post<WhatsappResponseData>(
-      'http://localhost:8080/whatsapp/send',
+      `${environment.serverUrl}/whatsapp/send`,
       {
         phoneNumber: phoneNumber,
         message: message
@@ -43,7 +44,7 @@ export class WhatsappService {
   recieveMessage(): any {
     return this.http
     .get<WhatsappRecieveResponseData[]>(
-      'http://localhost:8080/fetchMessage'
+      `${environment.serverUrl}/whatsapp/fetchMessage`
     )
     .pipe(
       catchError(this.handleError),

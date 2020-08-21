@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
+import { environment } from "src/environments/environment";
 
 import { User } from '../model/user.model';
 
@@ -25,7 +26,7 @@ export class AuthService {
   signup(username: string, password: string, email: string) {
     return this.http
       .post<AuthResponseData>(
-        'http://localhost:8080/register',
+        `${environment.serverUrl}/register`,
         {
           username: username,
           email: email,
@@ -48,7 +49,7 @@ export class AuthService {
   login(username: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'http://localhost:8080/authenticate',
+        `${environment.serverUrl}/authenticate`,
         {
           username: username,
           password: password
@@ -102,7 +103,7 @@ export class AuthService {
   resetPassword(username: string, oldPassword: string, newPassword: string) {
     return this.http
       .post<AuthResponseData>(
-        'http://localhost:8080/resetPassword',
+        `${environment.serverUrl}/resetPassword`,
         {
           username: username,
           password: oldPassword,
