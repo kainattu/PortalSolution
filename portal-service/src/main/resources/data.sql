@@ -4,7 +4,7 @@ INSERT INTO  role values(102,'WhatsappWrite');
 INSERT INTO  role values(103,'WhatsappRead');
 INSERT INTO  role values(104,'Authenticated');
 
-insert into user (id, email, mobile_no, password, username, first_time_login)  values  (100, 'multi@test.com', 9873456782, '$2a$10$igKIeUe5SUwqnpEJTdzWquZHAxiFBOt8YHp7rZAtUewNuzb5iWy8y', 'multi',false);
+insert into user (id, email, mobile_no, password, username, first_time_login)  values  (100, 'multirole@test.com', 9873456782, '$2a$10$igKIeUe5SUwqnpEJTdzWquZHAxiFBOt8YHp7rZAtUewNuzb5iWy8y', 'multirole',false);
 insert into user (id, email, mobile_no, password, username, first_time_login)  values  (101, 'admin@test.com', 8382224756, '$2a$10$igKIeUe5SUwqnpEJTdzWquZHAxiFBOt8YHp7rZAtUewNuzb5iWy8y', 'admin',false);
 insert into user (id, email, mobile_no, password, username, first_time_login)  values  (102, 'user@test.com', 7023387364, '$2a$10$igKIeUe5SUwqnpEJTdzWquZHAxiFBOt8YHp7rZAtUewNuzb5iWy8y', 'user',false);
 insert into user (id, email, mobile_no, password, username, first_time_login)  values  (103, 'whatsapp@test.com', 7023387364, '$2a$10$igKIeUe5SUwqnpEJTdzWquZHAxiFBOt8YHp7rZAtUewNuzb5iWy8y', 'whatsapp',false);
